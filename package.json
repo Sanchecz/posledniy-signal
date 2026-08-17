@@ -1,0 +1,42 @@
+{
+  "name": "last-signal-clicker",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "vinext build",
+    "start": "vinext start",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "node --experimental-strip-types --test tests/game-engine.test.mjs && node --check public/sw.js",
+    "test:render": "node --test tests/rendered-html.test.mjs",
+    "test": "npm run test:unit && npm run build && npm run test:render",
+    "check": "npm run lint && npm run typecheck && npm test",
+    "lint": "eslint app lib worker tests next.config.ts vite.config.ts eslint.config.mjs postcss.config.mjs --max-warnings=0"
+  },
+  "dependencies": {
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.52.1",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.5",
+    "@vitejs/plugin-rsc": "0.5.34",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.3.1",
+    "react-server-dom-webpack": "19.2.8",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vinext": "1.0.0-beta.6",
+    "vite": "8.2.1",
+    "wrangler": "4.123.0"
+  },
+  "type": "module"
+}
