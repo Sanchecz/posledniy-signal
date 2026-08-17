@@ -1,6 +1,6 @@
 {
   "name": "last-signal-clicker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -8,20 +8,29 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "build:mobile": "vite build --config vite.mobile.config.ts",
     "start": "vinext start",
+    "android:sync": "npm run build:mobile && cap sync android && node scripts/prepare-android.mjs",
+    "android:bundle": "npm run android:sync && cd android && gradlew.bat bundleRelease",
+    "android:apk": "npm run android:sync && cd android && gradlew.bat assembleDebug",
+    "android:check": "npm run android:sync && cd android && gradlew.bat lintRelease testReleaseUnitTest bundleRelease",
     "typecheck": "tsc --noEmit",
     "test:unit": "node --experimental-strip-types --test tests/game-engine.test.mjs && node --check public/sw.js",
     "test:render": "node --test tests/rendered-html.test.mjs",
     "test": "npm run test:unit && npm run build && npm run test:render",
     "check": "npm run lint && npm run typecheck && npm test",
-    "lint": "eslint app lib worker tests next.config.ts vite.config.ts eslint.config.mjs postcss.config.mjs --max-warnings=0"
+    "lint": "eslint app mobile lib scripts worker tests capacitor.config.ts next.config.ts vite.config.ts vite.mobile.config.ts eslint.config.mjs postcss.config.mjs --max-warnings=0"
   },
   "dependencies": {
+    "@capacitor/app": "8.1.1",
+    "@capacitor/core": "8.5.0",
     "next": "16.3.1",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@capacitor/android": "8.5.0",
+    "@capacitor/cli": "8.5.0",
     "@cloudflare/vite-plugin": "1.52.1",
     "@tailwindcss/postcss": "4.3.3",
     "@types/node": "22.19.19",
@@ -37,6 +46,11 @@
     "vinext": "1.0.0-beta.6",
     "vite": "8.2.1",
     "wrangler": "4.123.0"
+  },
+  "overrides": {
+    "xcode": {
+      "uuid": "11.1.1"
+    }
   },
   "type": "module"
 }

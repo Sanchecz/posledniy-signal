@@ -94,6 +94,28 @@ export function GameApp() {
   const [isOnline, setIsOnline] = useState(true);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
 
+  useEffect(() => {
+    const handleNativeBack = (event: Event) => {
+      let handled = true;
+
+      if (settingsOpen) {
+        setSettingsOpen(false);
+        setResetArmed(false);
+      } else if (resetArmed) setResetArmed(false);
+      else if (resonanceOpen) setResonanceOpen(false);
+      else if (storyModal) setStoryModal(null);
+      else if (choiceReveal) setChoiceReveal(null);
+      else if (offlineReport) setOfflineReport(null);
+      else if (activeTab !== "signal") setActiveTab("signal");
+      else handled = false;
+
+      if (handled) event.preventDefault();
+    };
+
+    window.addEventListener("last-signal:native-back", handleNativeBack);
+    return () => window.removeEventListener("last-signal:native-back", handleNativeBack);
+  }, [activeTab, choiceReveal, offlineReport, resetArmed, resonanceOpen, settingsOpen, storyModal]);
+
   const stateRef = useRef(game);
   const initializedRef = useRef(false);
   const comboRef = useRef(0);

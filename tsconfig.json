@@ -27,6 +27,8 @@
     "next-env.d.ts",
     "app/**/*.ts",
     "app/**/*.tsx",
+    "mobile/**/*.ts",
+    "mobile/**/*.tsx",
     "worker/**/*.ts",
     "lib/**/*.ts",
     "*.ts",
@@ -34,5 +36,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "dist", ".vinext", ".wrangler", "work", "outputs"]
+  "exclude": ["node_modules", "dist", "mobile-dist", ".vinext", ".wrangler", "android", "work", "outputs"]
 }

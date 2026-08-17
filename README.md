@@ -85,6 +85,33 @@ Gate проверяет весь авторский исходный код, с�
 - maskable-иконки, offline shell и установка как PWA;
 - адаптация под широкие экраны без растягивания сюжетных карточек.
 
+## Android / Google Play
+
+- автономная Capacitor-сборка: сюжет, графика и сохранения находятся внутри приложения и не зависят от сайта;
+- package ID: `com.sanchecz.lastsignal`;
+- Android 7.0+ (`minSdk 24`), Android 16 / API 36 (`compileSdk` и `targetSdk`);
+- адаптивные и монохромные launcher icons, системный splash screen и safe-area для вырезов;
+- системная кнопка «Назад» сначала закрывает модальное окно или возвращает на главный экран;
+- cleartext-трафик и Android backup отключены, чувствительные разрешения не запрашиваются;
+- release-сборка проходит R8/minification, resource shrinking, Android Lint и JVM unit tests;
+- upload key и `keystore.properties` игнорируются Git и должны храниться отдельно.
+
+```bash
+npm run build:mobile
+npm run android:sync
+npm run android:check
+```
+
+Для Gradle требуются JDK 21, Android SDK Platform 36 и Build Tools 36.0.0. Подписанный bundle создаётся в `android/app/build/outputs/bundle/release/app-release.aab`.
+
+## Release notes 1.1.0
+
+- добавлено автономное Android-приложение для Google Play;
+- поддержка API 24–36, target API 36 и 16 KB page-size-совместимый Android toolchain;
+- нативная обработка кнопки «Назад» и жизненного цикла;
+- release signing, R8, resource shrinking и проверка App Bundle через bundletool;
+- privacy-first конфигурация без аналитики, рекламы, аккаунтов и сетевых разрешений.
+
 ## Release notes 1.0.0
 
 - новая структура «клик → улучшение → анимированная сцена → ответ → последствие»;

@@ -38,6 +38,16 @@ yarn-error.log*
 next-env.d.ts
 *.tsbuildinfo
 /dist/
+/mobile-dist/
 /.wrangler/
 /outputs/
 /work/
+
+# Android build products and signing secrets
+/android/.gradle/
+/android/build/
+/android/app/build/
+/android/local.properties
+/android/keystore.properties
+*.jks
+*.keystore
